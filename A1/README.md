@@ -5,7 +5,7 @@ Adapted from # cdsw-2020 https://wiki.communitydata.science/Seattle_open_data
 
 Dataset: Burke-Gilman Trail counter north of NE 70th St  
 Source: https://data.seattle.gov/d/2z5v-ecg8  
-Date accessed: 2027/10/8 
+Date accessed: 2026/10/8 
 Period analyzed: 2019  
 Dataset license / terms of use: MIT License, as included in LICENSE.
 This is separate from the dataset's own terms of use.
