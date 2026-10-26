@@ -1,18 +1,29 @@
-#HCDE410
-# A1 — Working with Open Data
+# HCDE410
+# A2 — Bias in Data
 
-**Dataset:** Burke-Gilman Trail counter north of NE 70th St  
-**Source:** https://data.seattle.gov/d/2z5v-ecg8  
-**Dataset Terms of Use:** The Burke-Gilman Trail counter dataset is provided by the [City of Seattle Open Data Portal](https://data.seattle.gov/) and is dedicated to the **Public Domain**. Use of this data is free to share and analyze, subject to the [City of Seattle Terms of Use](https://www.seattle.gov/digital/terms-of-use), which provides the data "as is" without warranty of accuracy or completeness.
+**Dataset:** Wikipedia Talk Corpus  
+**Source:** [Wikipedia Detox Data Release](https://meta.wikimedia.org/wiki/Research:Detox/Data_Release)  
+**Toxicity data:** [Wikipedia Talk Labels: Toxicity](https://figshare.com/articles/dataset/Wikipedia_Talk_Labels_Toxicity/4563973)  
+**Dataset License:** The datasets are released under the **CC0 Public Domain Dedication**.
 
 ## Questions I asked
-When is the trail busiest and quietest?
-Do cyclists and pedestrians use the trail at different times?
-Do weekday and weekend patterns suggest commuting?
-Does northbound and southbound traffic change between morning and evening?
+
+- What are the annotators' gender, first-language, age, and education distributions?
+- Which fields have missing data?
+- How do duplicate records change the demographic statistics?
+- How do the annotators compare with a broader internet population?
+- What percentage of toxicity annotators have demographic records?
+- What percentage of comments were labelled by male or female annotators?
+- What percentage of comments were labelled by workers whose first language is not English?
+- How could these data limitations affect Perspective API?
 
 ## How to re-run
+
 Open the completed assignment notebook in JupyterLab and run all
 cells from top to bottom.
-Required Python packages: requests, pandas, and matplotlib.
-Internet access is needed to download the data from Seattle's API.
+
+Required Python packages: pandas and matplotlib.
+The notebook also uses Python's built-in csv and random modules.
+
+Internet access is needed to download the data.
+Once the files are available locally, the analysis can run without internet access.
