@@ -1,1 +1,3 @@
 observation,theme
+The participant received the full prompt and asked me which values should be treated as NA before using ChatGPT.,task clarification
+"After receiving the answer, the participant said they trusted it because the explanation matched the task requirements and their own judgment.",comparison with own judgment

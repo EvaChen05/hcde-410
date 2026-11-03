@@ -1,1 +1,164 @@
 run,prompt,model,version,timestamp,output,verified,notes
+model A*1,"I'm practicing data cleaning with pandas and have this small sample of age data:
+ages = [""20"", "" 21 "", """", ""N/A"", ""twenty"", ""22"", ""20""]
+Please write Python code to clean it and calculate the average age. Remove extra spaces and convert numeric strings to numbers. Treat empty strings, ""N/A"", and anything that cannot be converted to a number as missing. ",Gemini ,3.8 flash,10/28/2026 14:40pm,"Here is the standard pandas workflow to clean the data and compute the average:
+
+```python
+import pandas as pd
+
+ages = [""20"", "" 21 "", """", ""N/A"", ""twenty"", ""22"", ""20""]
+
+# 1. Create a Series and strip leading/trailing whitespace
+s = pd.Series(ages).astype(str).str.strip()
+
+# 2. Coerce invalid/non-numeric values (including '', 'N/A', 'twenty') to NaN
+clean_ages = pd.to_numeric(s, errors=""coerce"")
+
+# 3. Calculate the mean (pandas skips NaN values by default)
+average_age = clean_ages.mean()
+
+print(""Cleaned Series:"")
+print(clean_ages)
+print(f""\nAverage age: {average_age:.2f}"")
+
+```
+
+### Output
+
+```text
+Cleaned Series:
+0    20.0
+1    21.0
+2     NaN
+3     NaN
+4     NaN
+5    22.0
+6    20.0
+dtype: float64
+
+Average age: 20.75
+
+```
+
+### How It Works
+
+* **`str.strip()`**: Removes any leading or trailing whitespace (turning `"" 21 ""` into `""21""` and `"" ""` into `""""`).
+* **`pd.to_numeric(..., errors=""coerce"")`**: Attempts to parse each element into a number. Any element that cannot be parsed—such as empty strings `""""`, `""N/A""`, or word forms like `""twenty""`—is automatically turned into `NaN`.
+* **`.mean()`**: Computes $\frac{20 + 21 + 22 + 20}{4} = 20.75$, ignoring `NaN` values automatically.",Correct,"I ran the code in Jupyter. It returned four valid ages and three missing values. The average was 20.75, matching my manual calculation."
+model A*2,"I'm practicing data cleaning with pandas and have this small sample of age data:
+ages = [""20"", "" 21 "", """", ""N/A"", ""twenty"", ""22"", ""20""]
+Please write Python code to clean it and calculate the average age. Remove extra spaces and convert numeric strings to numbers. Treat empty strings, ""N/A"", and anything that cannot be converted to a number as missing. ",Gemini ,3.8 flash,10/28/2026 14:44pm,"You can clean this data by stripping whitespace and using `pd.to_numeric()` with `errors='coerce'`, which automatically turns any invalid values (empty strings, `""N/A""`, words like `""twenty""`) into `NaN`.
+
+```python
+import pandas as pd
+
+ages = [""20"", "" 21 "", """", ""N/A"", ""twenty"", ""22"", ""20""]
+
+# 1. Convert to a Series and strip leading/trailing whitespace
+s = pd.Series(ages).str.strip()
+
+# 2. Convert to numeric; unparseable values become NaN
+s_clean = pd.to_numeric(s, errors=""coerce"")
+
+# 3. Calculate average (pandas automatically ignores NaN values)
+average_age = s_clean.mean()
+
+print(""Cleaned Series:"")
+print(s_clean)
+print(f""\nAverage age: {average_age:.2f}"")
+
+```
+
+### Output
+
+```text
+Cleaned Series:
+0    20.0
+1    21.0
+2     NaN
+3     NaN
+4     NaN
+5    22.0
+6    20.0
+dtype: float64
+
+Average age: 20.75
+
+```
+
+### Key Points
+
+* **`str.strip()`** handles cases like `"" 21 ""` before parsing.
+* **`errors='coerce'`** is the standard Pandas pattern for parsing messy text columns into numbers, safely turning non-convertible items into missing data (`NaN`).
+* **`mean()`** skips `NaN` values by default (`skipna=True`), calculating the average strictly over `[20, 21, 22, 20]`:
+
+$$\frac{20 + 21 + 22 + 20}{4} = \frac{83}{4} = 20.75$$",Correct,"I ran the code in Jupyter. It returned four valid ages and three missing values. The average was 20.75, matching my manual calculation."
+model A*3,"I'm practicing data cleaning with pandas and have this small sample of age data:
+ages = [""20"", "" 21 "", """", ""N/A"", ""twenty"", ""22"", ""20""]
+Please write Python code to clean it and calculate the average age. Remove extra spaces and convert numeric strings to numbers. Treat empty strings, ""N/A"", and anything that cannot be converted to a number as missing. ",Gemini ,3.8 flash,10/28/2026 14:45pm,"Here is the complete pandas code to clean the data and compute the average:
+
+```python
+import pandas as pd
+
+ages = [""20"", "" 21 "", """", ""N/A"", ""twenty"", ""22"", ""20""]
+
+# 1. Create a Series and strip leading/trailing whitespace
+s = pd.Series(ages).astype(str).str.strip()
+
+# 2. Convert to numeric, forcing non-numeric values to NaN
+# 'errors=""coerce""' automatically turns """", ""N/A"", ""twenty"", etc., into NaN
+clean_ages = pd.to_numeric(s, errors=""coerce"")
+
+# 3. Calculate the mean (pandas automatically ignores NaN by default)
+average_age = clean_ages.mean()
+
+print(""Cleaned Series:"")
+print(clean_ages)
+print(f""\nAverage age: {average_age:.2f}"")
+
+```
+
+### Output
+
+```text
+Cleaned Series:
+0    20.0
+1    21.0
+2     NaN
+3     NaN
+4     NaN
+5    22.0
+6    20.0
+dtype: float64
+
+Average age: 20.75
+
+```
+
+### How it works
+
+* **`.str.strip()`**: Trims whitespace (turning `"" 21 ""` into `""21""`).
+* **`pd.to_numeric(..., errors=""coerce"")`**: The workhorse of numeric cleaning in pandas. Any value that cannot parse cleanly as a number (`""""`, `""N/A""`, `""twenty""`) is safely converted to `NaN`.
+* **`.mean()`**: Calculates the arithmetic average across valid entries ($[20, 21, 22, 20]$), automatically skipping `NaN` values ($83 / 4 = 20.75$).",Correct,"I ran the code in Jupyter. It returned four valid ages and three missing values. The average was 20.75, matching my manual calculation."
+model B*1,"I'm practicing data cleaning with pandas and have this small sample of age data:
+ages = [""20"", "" 21 "", """", ""N/A"", ""twenty"", ""22"", ""20""]
+Please write Python code to clean it and calculate the average age. Remove extra spaces and convert numeric strings to numbers. Treat empty strings, ""N/A"", and anything that cannot be converted to a number as missing. ",Chatgpt,6.1 sol,10/28/2026 14:48pm,"```python
+import pandas as pd
+
+ages = [""20"", "" 21 "", """", ""N/A"", ""twenty"", ""22"", ""20""]
+
+# Strip spaces; values that cannot be converted become NaN (missing).
+cleaned_ages = pd.to_numeric(pd.Series(ages).str.strip(), errors=""coerce"")
+
+# mean() ignores missing values by default.
+average_age = cleaned_ages.mean()
+
+print(cleaned_ages.tolist())
+print(f""Average age: {average_age:.2f}"")
+```
+
+Output:
+```text
+[20.0, 21.0, nan, nan, nan, 22.0, 20.0]
+Average age: 20.75
+```",Correct,"I ran the code in Jupyter. It returned four valid ages and three missing values. The average was 20.75, matching my manual calculation."
